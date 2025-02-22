@@ -3,6 +3,7 @@ import styles from "../styles";
 import { useEffect, useState } from "react";
 import { Product } from "../types";
 import api from "../api";
+import Products from "@/components/Products";
 
 export default function Index() {
     const [products, setProducts] = useState<Product[]>([]);
@@ -20,10 +21,7 @@ export default function Index() {
                 numColumns={2}
                 keyExtractor={(item) => item.title}
                 renderItem={({ item }) => (
-                    <View>
-                        <Text>{item.title}</Text>
-                        <Text>{item.price}</Text>
-                    </View>
+                    <Products key={item.id} item={item} />
                 )}
             />
         </View>
