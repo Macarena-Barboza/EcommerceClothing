@@ -6,17 +6,31 @@ import {
     ActivityIndicator,
     TouchableOpacity,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
 import { Product } from "../types";
 import api from "../api";
 import Ionicons from "@expo/vector-icons/Ionicons";
+// import { useAppContext } from "../../context/AppContext";
+import { AppContext } from "../../context/AppContext";
+import { favContext } from "../../context/FavContext";
+import favorite from "../(tabs)/favorite";
 
 export default function ProductDetails() {
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
     const { id } = useLocalSearchParams();
-    const [favorite, setFavorite] = useState(false);
+
+    const {
+        favorite,
+        // setFavorite,
+        selectedSize,
+        setSelectedSize,
+        selectedColor,
+        setSelectedColor,
+    } = useContext(AppContext);
+
+    const { addFavorite, favorit } = useContext(favContext);
 
     useEffect(() => {
         setLoading(true);
@@ -27,6 +41,11 @@ export default function ProductDetails() {
         });
     }, [id]);
 
+    useEffect(() => {
+        console.log("Tamaño seleccionado:", selectedSize);
+        console.log("Color seleccionado:", selectedColor);
+    }, [selectedSize, selectedColor]);
+
     if (loading) {
         return <ActivityIndicator size={"large"} color={"crimson"} />;
     }
@@ -34,51 +53,98 @@ export default function ProductDetails() {
     if (!product) {
         return <Text>No product found</Text>;
     }
-    function favorit() {
-        setFavorite(!true);
-    }
+
+    const handleSizeSelect = (siz: any) => {
+        setSelectedSize(siz);
+        console.log(selectedSize);
+    };
+
+    const handleColorSelected = (color: any) => {
+        setSelectedColor(color);
+    };
 
     return (
         <>
             <View style={styles.content}>
                 <Image source={product.image} style={styles.img} />
-                <TouchableOpacity onPress={favorit} style={styles.fav}>
+                {/* <TouchableOpacity onPress={favorit} style={styles.fav}> */}
+                <TouchableOpacity onPress={() => addFavorite(product)}>
                     <Ionicons
                         name={favorite ? "heart-sharp" : "heart-outline"}
                         size={35}
                         color="crimson"
                     />
                 </TouchableOpacity>
+
                 <View style={styles.contentText}>
                     <Text style={styles.title}>{product.title}</Text>
                     <Text style={styles.price}>$ {product.price}</Text>
                 </View>
                 <Text style={styles.description}>{product.description}</Text>
+
                 <View style={styles.contentText}>
                     <View style={{ width: 150 }}>
                         <Text style={styles.title}>Size</Text>
                         <View style={styles.contentText}>
-                            <TouchableOpacity style={styles.size}>
-                                <Text>S</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.sizeSeleted}>
-                                <Text style={styles.sizeSeletedText}>M</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity>
-                                <Text>L</Text>
-                            </TouchableOpacity>
+                            {product.size.map((siz) => {
+                                return (
+                                    <TouchableOpacity
+                                        key={siz}
+                                        onPress={() => handleSizeSelect(siz)}
+                                        style={[
+                                            selectedSize === siz
+                                                ? styles.sizeSeleted
+                                                : styles.sizee, // Cambia el estilo dependiendo de si el tamaño está seleccionado
+                                        ]}
+                                    >
+                                        <Text
+                                            style={
+                                                selectedSize === siz && {
+                                                    color: "#fff",
+                                                    fontWeight: "bold",
+                                                }
+                                            }
+                                        >
+                                            {siz}
+                                        </Text>
+                                    </TouchableOpacity>
+                                );
+                            })}
                         </View>
                     </View>
-                    <View style={{ width: 150 }}>
+
+                    <View style={{ width: 150, height: 80 }}>
                         <Text style={styles.title}>Color</Text>
-                        <View style={styles.contentText}>
-                            <TouchableOpacity style={styles.color} />
-                            <TouchableOpacity style={styles.color} />
-                            <TouchableOpacity style={styles.color} />
+                        <View style={styles.contentColor}>
+                            {product.colors.map((color) => {
+                                return (
+                                    <TouchableOpacity
+                                        key={color}
+                                        onPress={() =>
+                                            handleColorSelected(color)
+                                        }
+                                        style={[
+                                            styles.color,
+                                            {
+                                                backgroundColor: color,
+                                                borderWidth:
+                                                    selectedColor === color
+                                                        ? 2
+                                                        : 0,
+                                                borderColor:
+                                                    selectedColor === color
+                                                        ? "#000000"
+                                                        : "transparent",
+                                            },
+                                        ]}
+                                    />
+                                );
+                            })}
                         </View>
                     </View>
                 </View>
             </View>
+
             <TouchableOpacity style={styles.btn}>
                 <Text style={styles.btnText}>Agregar Carrito</Text>
             </TouchableOpacity>
@@ -104,14 +170,20 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
     },
-    fav: {
-        position: "absolute",
-        top: 30,
-        right: 33,
-        backgroundColor: "#eeeeee",
-        borderRadius: "50%",
-        padding: 7,
+    contentColor: {
+        justifyContent: "flex-start",
+        flexDirection: "row",
+        gap: 20,
+        marginTop: 7,
     },
+    // fav: {
+    //     position: "absolute",
+    //     top: 30,
+    //     right: 33,
+    //     backgroundColor: "#eeeeee",
+    //     borderRadius: "50%",
+    //     padding: 7,
+    // },
     title: {
         fontSize: 23,
         fontWeight: "bold",
@@ -126,7 +198,7 @@ const styles = StyleSheet.create({
         color: "#33333398",
         padding: 8,
     },
-    size: {
+    sizee: {
         backgroundColor: "#cccccc90",
         paddingHorizontal: 12,
         paddingVertical: 7,
@@ -138,14 +210,9 @@ const styles = StyleSheet.create({
         paddingVertical: 7,
         borderRadius: "30%",
     },
-    sizeSeletedText: {
-        color: "#fff",
-        fontWeight: "bold",
-    },
     color: {
-        borderWidth: 1,
-        height: 30,
-        width: 30,
+        height: 32,
+        width: 32,
         borderRadius: "50%",
     },
     btn: {

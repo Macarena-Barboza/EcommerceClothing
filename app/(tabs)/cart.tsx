@@ -1,10 +1,10 @@
 import { View, Text } from "react-native";
 import React from "react";
 
-export default function camera() {
+export default function cart() {
     return (
         <View>
-            <Text>camera</Text>
+            <Text>cart</Text>
         </View>
     );
 }

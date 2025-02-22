@@ -7,45 +7,40 @@ export default function TabsLayout() {
         <Tabs
             screenOptions={{
                 headerStyle: {
-                    backgroundColor: "#8f8ab1",
+                    backgroundColor: "pink",
                 },
                 headerTintColor: "white",
-                tabBarActiveTintColor: "#8f8ad1",
+                tabBarActiveTintColor: "crimson",
                 tabBarStyle: {
                     backgroundColor: "#f1d8e0",
                 },
+                tabBarShowLabel: false,
             }}
         >
+            <Tabs.Screen
+                name="favorite"
+                options={{
+                    headerTitle: "Favorite",
+                    tabBarIcon: ({ color }) => (
+                        <Ionicons name={"heart"} size={28} color={color} />
+                    ),
+                }}
+            />
             <Tabs.Screen
                 name="index"
                 options={{
                     headerTitle: "Home",
                     tabBarIcon: ({ color, size }) => (
-                        <Entypo name="home" size={24} color={color} />
+                        <Entypo name="home" size={28} color={color} />
                     ),
                 }}
             />
             <Tabs.Screen
-                name="about"
+                name="cart"
                 options={{
-                    headerTitle: "About",
-                    tabBarIcon: ({ focused, color }) => (
-                        <Ionicons
-                            name={
-                                focused ? "settings-sharp" : "settings-outline"
-                            }
-                            size={24}
-                            color={color}
-                        />
-                    ),
-                }}
-            />
-            <Tabs.Screen
-                name="camera"
-                options={{
-                    headerTitle: "Camera",
+                    headerTitle: "Cart",
                     tabBarIcon: ({ color, size }) => (
-                        <Entypo name="camera" size={24} color={color} />
+                        <Ionicons name="cart" size={29} color={color} />
                     ),
                 }}
             />

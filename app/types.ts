@@ -7,4 +7,6 @@ export interface Product {
     image1: ImageSourcePropType;
     price: number;
     description: string;
+    size: string[];
+    colors: string[];
 }

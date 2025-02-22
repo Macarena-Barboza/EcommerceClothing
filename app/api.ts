@@ -10,6 +10,8 @@ const api = {
             image1: require("../assets/clothing/blusaconvolados1.jpg"),
             description:
                 "Lorem ipsum dolor sit amet consectetur adipisicing elit.  Nobis quibusdam consectetur sunt dicta magni? Necessitatibus neque corporis?",
+            size: ["S", "M", "L"],
+            colors: ["red", "green", "black"],
         },
         {
             id: 2,
@@ -18,7 +20,9 @@ const api = {
             image: require("../assets/clothing/blusaestampada.jpg"),
             image1: require("../assets/clothing/blusaestampada1.jpg"),
             description:
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit.  Nobis quibusdam consectetur sunt dicta magni? Necessitatibus neque corporis voluptatem odit illo reprehenderit adipisci  facere incidunt?",
+                "Lorem ipsum dolor sit amet consectetur adipisicing elit.  Nobis quibusdam consectetur sunt dicta magni? Necessitatibus neque corporis ?",
+            size: ["S", "M", "L"],
+            colors: ["red", "orange"],
         },
     ],
 };
