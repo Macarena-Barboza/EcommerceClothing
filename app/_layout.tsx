@@ -1,5 +1,5 @@
-import { AppProvider } from "@/context/AppContext";
-import FavContextProvider from "@/context/FavContext";
+import { AppProvider } from "@/context/appContext";
+import FavContextProvider from "@/context/favContext";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 

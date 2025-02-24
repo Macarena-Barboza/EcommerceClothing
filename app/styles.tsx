@@ -7,12 +7,35 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     btn: {
-        paddingVertical: 7,
-        paddingHorizontal: 12,
-        margin: 10,
-        backgroundColor: "#8f8ad1",
-        borderRadius: 10,
-        color: "#f1f1f1",
+        width: 180,
+        marginHorizontal: "auto",
+        marginVertical: 2,
+        backgroundColor: "crimson",
+        paddingVertical: 3,
+        borderRadius: 20,
+    },
+    btnText: {
+        textAlign: "center",
+        color: "#fff",
+        fontSize: 18,
+    },
+    btnSum: {
+        width: 25,
+        height: 25,
+        borderRadius: 5,
+        backgroundColor: "#ccc",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    contentCart: {
+        flexDirection: "row",
+        // backgroundColor: "red",
+        justifyContent: "center",
+        gap: 30,
+        marginVertical: 8,
+    },
+    contentCartText: {
+        justifyContent: "center",
     },
 });
 

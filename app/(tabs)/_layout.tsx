@@ -1,8 +1,13 @@
+import { AppContext } from "@/context/appContext";
 import Entypo from "@expo/vector-icons/Entypo";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Tabs } from "expo-router";
+import { useContext } from "react";
 
 export default function TabsLayout() {
+    const { getTotalItemInCart } = useContext(AppContext);
+    let notifi = getTotalItemInCart();
+
     return (
         <Tabs
             screenOptions={{
@@ -39,6 +44,8 @@ export default function TabsLayout() {
                 name="cart"
                 options={{
                     headerTitle: "Cart",
+                    tabBarBadge: notifi,
+                    tabBarBadgeStyle: { backgroundColor: "crimson" },
                     tabBarIcon: ({ color, size }) => (
                         <Ionicons name="cart" size={29} color={color} />
                     ),

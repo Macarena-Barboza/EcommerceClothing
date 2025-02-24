@@ -1,5 +1,5 @@
 import React, { useState, createContext, useContext } from "react";
-import { AppContext } from '../context/AppContext'
+import { AppContext } from './appContext'
 
 
 const favContext = createContext();

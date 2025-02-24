@@ -5,16 +5,15 @@ import {
     Image,
     ActivityIndicator,
     TouchableOpacity,
+    Alert,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { Product } from "../types";
 import api from "../api";
 import Ionicons from "@expo/vector-icons/Ionicons";
-// import { useAppContext } from "../../context/AppContext";
-import { AppContext } from "../../context/AppContext";
-import { favContext } from "../../context/FavContext";
-import favorite from "../(tabs)/favorite";
+import { AppContext } from "../../context/appContext";
+import { favContext } from "../../context/favContext";
 
 export default function ProductDetails() {
     const [product, setProduct] = useState<Product | null>(null);
@@ -23,14 +22,14 @@ export default function ProductDetails() {
 
     const {
         favorite,
-        // setFavorite,
         selectedSize,
         setSelectedSize,
         selectedColor,
         setSelectedColor,
+        addItem,
     } = useContext(AppContext);
 
-    const { addFavorite, favorit } = useContext(favContext);
+    const { addFavorite } = useContext(favContext);
 
     useEffect(() => {
         setLoading(true);
@@ -40,11 +39,6 @@ export default function ProductDetails() {
             setLoading(false);
         });
     }, [id]);
-
-    useEffect(() => {
-        console.log("Tamaño seleccionado:", selectedSize);
-        console.log("Color seleccionado:", selectedColor);
-    }, [selectedSize, selectedColor]);
 
     if (loading) {
         return <ActivityIndicator size={"large"} color={"crimson"} />;
@@ -56,18 +50,41 @@ export default function ProductDetails() {
 
     const handleSizeSelect = (siz: any) => {
         setSelectedSize(siz);
-        console.log(selectedSize);
     };
 
     const handleColorSelected = (color: any) => {
         setSelectedColor(color);
     };
 
+    const handleAddToCart = () => {
+        if (selectedColor === null || selectedSize === null) {
+            Alert.alert("Important", "Choose a Size and Color, to continue", [
+                {
+                    text: "OK",
+                },
+            ]);
+        } else {
+            // Solo pasamos la cantidad como un número
+            const count = 1; // O puedes permitir que el usuario elija la cantidad
+            addItem(
+                {
+                    ...product,
+                    size: selectedSize, // Asegúrate de pasar el tamaño correcto
+                    color: selectedColor, // Asegúrate de pasar el color correcto
+                },
+                count
+            );
+
+            router.navigate("/cart");
+            setSelectedColor(null);
+            setSelectedSize(null);
+        }
+    };
+
     return (
         <>
             <View style={styles.content}>
                 <Image source={product.image} style={styles.img} />
-                {/* <TouchableOpacity onPress={favorit} style={styles.fav}> */}
                 <TouchableOpacity onPress={() => addFavorite(product)}>
                     <Ionicons
                         name={favorite ? "heart-sharp" : "heart-outline"}
@@ -94,7 +111,7 @@ export default function ProductDetails() {
                                         style={[
                                             selectedSize === siz
                                                 ? styles.sizeSeleted
-                                                : styles.sizee, // Cambia el estilo dependiendo de si el tamaño está seleccionado
+                                                : styles.sizee,
                                         ]}
                                     >
                                         <Text
@@ -129,11 +146,11 @@ export default function ProductDetails() {
                                                 backgroundColor: color,
                                                 borderWidth:
                                                     selectedColor === color
-                                                        ? 2
+                                                        ? 3
                                                         : 0,
                                                 borderColor:
                                                     selectedColor === color
-                                                        ? "#000000"
+                                                        ? "#00000099"
                                                         : "transparent",
                                             },
                                         ]}
@@ -145,7 +162,10 @@ export default function ProductDetails() {
                 </View>
             </View>
 
-            <TouchableOpacity style={styles.btn}>
+            <TouchableOpacity
+                style={styles.btn}
+                onPress={() => handleAddToCart()}
+            >
                 <Text style={styles.btnText}>Agregar Carrito</Text>
             </TouchableOpacity>
         </>
