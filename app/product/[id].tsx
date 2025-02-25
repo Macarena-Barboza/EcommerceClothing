@@ -21,7 +21,6 @@ export default function ProductDetails() {
     const { id } = useLocalSearchParams();
 
     const {
-        favorite,
         selectedSize,
         setSelectedSize,
         selectedColor,
@@ -29,7 +28,7 @@ export default function ProductDetails() {
         addItem,
     } = useContext(AppContext);
 
-    const { addFavorite } = useContext(favContext);
+    const { addFavorite, favorite } = useContext(favContext);
 
     useEffect(() => {
         setLoading(true);

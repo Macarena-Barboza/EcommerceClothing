@@ -3,11 +3,10 @@ import React, { createContext, useState } from "react";
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-    const [favorite, setFavorite] = useState(false);
     const [selectedSize, setSelectedSize] = useState(null);
     const [selectedColor, setSelectedColor] = useState(null);
-
     const [cart, setCart] = useState([]);
+
     function addItem(data, count) {
         if (!data.id || !data.size || !data.color) {
             console.error("El producto no tiene un ID, tamaño o color válido:", data);
@@ -83,8 +82,6 @@ export const AppProvider = ({ children }) => {
 
     return (
         <AppContext.Provider value={{
-            favorite,
-            setFavorite,
             selectedSize,
             setSelectedSize,
             selectedColor,
@@ -95,7 +92,7 @@ export const AppProvider = ({ children }) => {
             deleteItem,
             getTotalItemPriceInCart,
             clearCart,
-            updateItemCount
+            updateItemCount,
         }}>
             {children}
         </AppContext.Provider>

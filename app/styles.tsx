@@ -6,6 +6,22 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
+    contentCategory: {
+        flexDirection: "row",
+        gap: 12,
+        margin: 5,
+    },
+    contentCategoryText: {
+        fontWeight: "bold",
+        color: "#00000070",
+        fontSize: 15,
+        borderWidth: 1,
+        borderColor: "#00000070",
+        borderRadius: 12,
+        paddingVertical: 3,
+        paddingHorizontal: 24,
+        marginHorizontal: 10,
+    },
     btn: {
         width: 180,
         marginHorizontal: "auto",

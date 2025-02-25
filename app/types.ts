@@ -9,4 +9,5 @@ export interface Product {
     description: string;
     size: string[];
     colors: string[];
+    category: string;
 }

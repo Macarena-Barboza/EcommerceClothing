@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React, { useContext } from "react";
 import styles from "../styles";
 import { favContext } from "@/context/favContext";
@@ -18,7 +18,7 @@ export default function favorite() {
                     {favorit.map((favo: any) => {
                         return (
                             <>
-                                <Products key={favo} item={favo} />
+                                <Products key={favo.id} item={favo} />
                                 <View>
                                     <TouchableOpacity
                                         onPress={() => deleteFavorite(favo.id)}
