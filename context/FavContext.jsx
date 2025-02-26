@@ -4,42 +4,35 @@ import { Alert } from "react-native";
 const favContext = createContext();
 
 export default function FavContextProvider({ children }) {
-
     const [favorit, setFavorit] = useState([]);
-    const [favorite, setFavorite] = useState(false);
-
 
     const addFavorite = (item) => {
-        if (favorite === false) {
+        const isFavorite = favorit.some((fav) => fav.id === item.id);
+
+        if (!isFavorite) {
             Alert.alert("Favorite", `is added '${item.title}' to favorite`, [
-                {
-                    text: "OK",
-                },
+                { text: "OK" },
             ]);
-        }
-
-        const newFav = favorit.findIndex((i) => i.id === item.id);
-
-        // Si el producto ya está en la lista, eliminamos el favorito
-        if (newFav > -1) {
-            deleteFavorite(item.id);  // Eliminar el favorito
-        } else {
             setFavorit([...favorit, item]);  // Agregar a favoritos
+        } else {
+            deleteFavorite(item.id);  // Eliminar de favoritos
         }
-
-        // Alternar el estado de "favorite"
-        setFavorite(!favorite);
     };
 
     const deleteFavorite = (id) => {
         setFavorit(favorit.filter((i) => i.id !== id));  // Filtrar el producto
-        setFavorite(!favorite)
     };
+
+    // Función para verificar si un producto es favorito
+    const isFavorite = (item) => {
+        return favorit.some((fav) => fav.id === item.id);
+
+    }
 
     return (
         <favContext.Provider value={{
             favorit, addFavorite, deleteFavorite,
-            favorite, setFavorite,
+            isFavorite
         }}>
             {children}
         </favContext.Provider>

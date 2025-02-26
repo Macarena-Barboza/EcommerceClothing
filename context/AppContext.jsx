@@ -75,9 +75,9 @@ export const AppProvider = ({ children }) => {
     }
 
 
-    function clearCart() {
-        return setCart([]);
-    }
+    // function clearCart() {
+    //     return setCart([]);
+    // }
 
 
     return (
@@ -91,7 +91,7 @@ export const AppProvider = ({ children }) => {
             getTotalItemInCart,
             deleteItem,
             getTotalItemPriceInCart,
-            clearCart,
+            // clearCart,
             updateItemCount,
         }}>
             {children}

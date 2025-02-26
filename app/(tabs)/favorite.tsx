@@ -17,7 +17,7 @@ export default function favorite() {
                 <>
                     {favorit.map((favo: any) => {
                         return (
-                            <>
+                            <View key={favo.id}>
                                 <Products key={favo.id} item={favo} />
                                 <View>
                                     <TouchableOpacity
@@ -29,7 +29,7 @@ export default function favorite() {
                                         </Text>
                                     </TouchableOpacity>
                                 </View>
-                            </>
+                            </View>
                         );
                     })}
                 </>

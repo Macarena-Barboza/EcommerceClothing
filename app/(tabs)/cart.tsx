@@ -43,7 +43,14 @@ export default function cart() {
                                     }}
                                 />
                                 <View style={styles.contentCartText}>
-                                    <Text>{carrito.title}</Text>
+                                    <Text
+                                        style={{
+                                            fontWeight: "bold",
+                                            fontSize: 15,
+                                        }}
+                                    >
+                                        {carrito.title}
+                                    </Text>
                                     <Text>size: {carrito.size}</Text>
                                     <Text
                                         style={{
@@ -120,25 +127,27 @@ export default function cart() {
                             textAlign: "right",
                             paddingRight: 50,
                             paddingVertical: 20,
+                            fontSize: 18,
                         }}
                     >
-                        TOTAL:
-                        <Text style={{ fontWeight: "bold" }}>
+                        TOTAL:{" "}
+                        <Text style={{ fontWeight: "bold", fontSize: 18 }}>
                             $ {isNaN(total) ? 0 : total.toFixed(3)}
                         </Text>
                     </Text>
 
                     <TouchableOpacity
-                        style={[styles.btn, { marginTop: 70 }]}
+                        style={[
+                            styles.btn,
+                            {
+                                height: 40,
+                                justifyContent: "center",
+                                width: "80%",
+                            },
+                        ]}
                         onPress={() => router.navigate("/")}
                     >
-                        <Text style={styles.btnText}>Seguir Comprando</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[styles.btn, { marginTop: 30 }]}
-                        onPress={clearCart}
-                    >
-                        <Text style={styles.btnText}>Vaciar Carrito</Text>
+                        <Text style={styles.btnText}>Pagar</Text>
                     </TouchableOpacity>
                 </>
             )}

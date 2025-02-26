@@ -28,7 +28,11 @@ export default function ProductDetails() {
         addItem,
     } = useContext(AppContext);
 
-    const { addFavorite, favorite } = useContext(favContext);
+    const {
+        addFavorite,
+        //  favorite,
+        isFavorite,
+    } = useContext(favContext);
 
     useEffect(() => {
         setLoading(true);
@@ -86,7 +90,11 @@ export default function ProductDetails() {
                 <Image source={product.image} style={styles.img} />
                 <TouchableOpacity onPress={() => addFavorite(product)}>
                     <Ionicons
-                        name={favorite ? "heart-sharp" : "heart-outline"}
+                        name={
+                            isFavorite(product)
+                                ? "heart-sharp"
+                                : "heart-outline"
+                        }
                         size={35}
                         color="crimson"
                     />
@@ -99,9 +107,9 @@ export default function ProductDetails() {
                 <Text style={styles.description}>{product.description}</Text>
 
                 <View style={styles.contentText}>
-                    <View style={{ width: 150 }}>
+                    <View style={{ width: 150, marginBottom: 9 }}>
                         <Text style={styles.title}>Size</Text>
-                        <View style={styles.contentText}>
+                        <View style={styles.contentColor}>
                             {product.size.map((siz) => {
                                 return (
                                     <TouchableOpacity
@@ -189,6 +197,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
     },
+    contentSize: {
+        flexDirection: "row",
+        gap: 20,
+    },
     contentColor: {
         justifyContent: "flex-start",
         flexDirection: "row",
@@ -222,6 +234,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         paddingVertical: 7,
         borderRadius: "30%",
+        // width: 32,
     },
     sizeSeleted: {
         backgroundColor: "crimson",

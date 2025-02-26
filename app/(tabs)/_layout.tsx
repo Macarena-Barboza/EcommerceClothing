@@ -3,6 +3,7 @@ import Entypo from "@expo/vector-icons/Entypo";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Tabs } from "expo-router";
 import { useContext } from "react";
+import { Image, View } from "react-native";
 
 export default function TabsLayout() {
     const { getTotalItemInCart } = useContext(AppContext);
@@ -15,9 +16,28 @@ export default function TabsLayout() {
                     backgroundColor: "pink",
                 },
                 headerTintColor: "white",
-                tabBarActiveTintColor: "crimson",
+                headerTitleAlign: "center",
+                headerTitleStyle: {},
+                headerLeft: () => (
+                    <View style={{ paddingLeft: 20 }}>
+                        <Image
+                            source={require("@/assets/clothing/maniqui.png")}
+                            style={{
+                                width: 21,
+                                height: 50,
+                            }}
+                        />
+                    </View>
+                ),
+                headerRight: () => (
+                    <View style={{ paddingRight: 20 }}>
+                        <Ionicons name={"search"} size={28} color={"black"} />
+                    </View>
+                ),
+                tabBarActiveTintColor: "#9e2561",
+                tabBarInactiveTintColor: "#00000050",
                 tabBarStyle: {
-                    backgroundColor: "#f1d8e0",
+                    backgroundColor: "pink",
                 },
                 tabBarShowLabel: false,
             }}
@@ -27,16 +47,16 @@ export default function TabsLayout() {
                 options={{
                     headerTitle: "Favorite",
                     tabBarIcon: ({ color }) => (
-                        <Ionicons name={"heart"} size={28} color={color} />
+                        <Ionicons name={"heart"} size={32} color={color} />
                     ),
                 }}
             />
             <Tabs.Screen
                 name="index"
                 options={{
-                    headerTitle: "Home",
+                    headerTitle: "Clothing",
                     tabBarIcon: ({ color, size }) => (
-                        <Entypo name="home" size={28} color={color} />
+                        <Entypo name="home" size={32} color={color} />
                     ),
                 }}
             />
@@ -47,7 +67,7 @@ export default function TabsLayout() {
                     tabBarBadge: notifi,
                     tabBarBadgeStyle: { backgroundColor: "crimson" },
                     tabBarIcon: ({ color, size }) => (
-                        <Ionicons name="cart" size={29} color={color} />
+                        <Ionicons name="cart" size={32} color={color} />
                     ),
                 }}
             />

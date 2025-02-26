@@ -10,17 +10,9 @@ export default function Index() {
     const [selectedCategory, setSelectedCategory] = useState("All");
     const [filteredProducts, setFilteredProducts] = useState(products);
 
-    const handleCategoryPress = (categoria: string) => {
-        setSelectedCategory(categoria);
-        if (categoria === "All") {
-            setFilteredProducts(products);
-        } else {
-            const filteredProducts = products.filter(
-                (product: any) => product.category === categoria
-            );
-            setFilteredProducts(filteredProducts);
-        }
-    };
+    useEffect(() => {
+        api.list().then(setProducts);
+    }, []);
 
     useEffect(() => {
         if (selectedCategory === "All") {
@@ -33,20 +25,30 @@ export default function Index() {
         }
     }, [selectedCategory, products]);
 
-    useEffect(() => {
-        api.list().then(setProducts);
-    }, []);
-
     const categoriasUnicas = [
-        "All",
+        "All", // Agrega la categoría "All"
         ...new Set(products.map((categ: any) => categ.category)),
     ];
+
+    // Función para manejar la selección de categorías
+    const handleCategoryPress = (categoria: string) => {
+        setSelectedCategory(categoria);
+        if (categoria === "All") {
+            setFilteredProducts(products); // Muestra todos los productos
+        } else {
+            const filteredProducts = products.filter(
+                (product: any) => product.category === categoria
+            );
+            setFilteredProducts(filteredProducts); // Filtra los productos por categoría
+        }
+    };
+
     return (
         <View style={styles.content}>
             <Image
                 source={require("../../assets/clothing/banner.png")}
                 style={{
-                    width: 400,
+                    width: 410,
                     height: 170,
                     borderRadius: 5,
                 }}
@@ -56,17 +58,22 @@ export default function Index() {
             <View style={styles.contentCategory}>
                 <FlatList
                     data={categoriasUnicas}
-                    keyExtractor={(item) => item.id}
+                    keyExtractor={(item) => item}
                     showsVerticalScrollIndicator={false}
                     horizontal={true}
-                    style={{ paddingLeft: 10, paddingVertical: 3 }}
+                    style={{ paddingVertical: 3 }}
                     renderItem={({ item }) => (
                         <TouchableOpacity
-                            // style={styles.contentCategoryText}
                             key={item.id}
                             onPress={() => handleCategoryPress(item)}
                         >
-                            <Text style={styles.contentCategoryText}>
+                            <Text
+                                style={[
+                                    selectedCategory === item
+                                        ? styles.contentCategoryTextSelected
+                                        : styles.contentCategoryText,
+                                ]}
+                            >
                                 {item}
                             </Text>
                         </TouchableOpacity>
@@ -81,6 +88,10 @@ export default function Index() {
                 renderItem={({ item }) => (
                     <Products key={item.id} item={item} />
                 )}
+                style={{
+                    paddingLeft: "2%",
+                    marginBottom: 2,
+                }}
             />
         </View>
     );
