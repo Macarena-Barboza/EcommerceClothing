@@ -7,8 +7,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     contentCategory: {
-        // flexDirection: "row",
-        // gap: 12,
         margin: 5,
         width: "92%",
     },
@@ -24,13 +22,11 @@ const styles = StyleSheet.create({
         marginHorizontal: 9,
     },
     contentCategoryTextSelected: {
-        // backgroundColor: "crimson",
         backgroundColor: "#9e2561",
         fontWeight: "bold",
         color: "white",
         fontSize: 15,
         borderWidth: 1,
-        // borderColor: "red",
         borderColor: "#9e1231",
         borderRadius: 12,
         paddingVertical: 4,

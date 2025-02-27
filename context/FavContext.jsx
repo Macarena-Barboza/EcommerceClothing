@@ -20,13 +20,12 @@ export default function FavContextProvider({ children }) {
     };
 
     const deleteFavorite = (id) => {
-        setFavorit(favorit.filter((i) => i.id !== id));  // Filtrar el producto
+        setFavorit(favorit.filter((i) => i.id !== id));
     };
 
     // Función para verificar si un producto es favorito
     const isFavorite = (item) => {
         return favorit.some((fav) => fav.id === item.id);
-
     }
 
     return (

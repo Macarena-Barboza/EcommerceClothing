@@ -6,13 +6,8 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
 
 export default function cart() {
-    const {
-        cart,
-        clearCart,
-        deleteItem,
-        getTotalItemPriceInCart,
-        updateItemCount,
-    } = useContext(AppContext);
+    const { cart, deleteItem, getTotalItemPriceInCart, updateItemCount } =
+        useContext(AppContext);
 
     let total = getTotalItemPriceInCart();
 
@@ -38,7 +33,7 @@ export default function cart() {
                                     source={carrito.image}
                                     style={{
                                         width: 100,
-                                        height: 100,
+                                        height: 120,
                                         borderRadius: 8,
                                     }}
                                 />
@@ -56,7 +51,7 @@ export default function cart() {
                                         style={{
                                             width: 20,
                                             height: 20,
-                                            borderWidth: 1,
+                                            margin: 4,
                                             borderRadius: 30,
                                             backgroundColor: carrito.color,
                                         }}

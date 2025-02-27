@@ -53,8 +53,6 @@ export default function Index() {
                     borderRadius: 5,
                 }}
             />
-            {/* <Text style={{ textAlign: "left", width: "90%" }}>Category</Text> */}
-
             <View style={styles.contentCategory}>
                 <FlatList
                     data={categoriasUnicas}

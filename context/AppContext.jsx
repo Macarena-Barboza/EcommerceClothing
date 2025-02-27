@@ -74,12 +74,6 @@ export const AppProvider = ({ children }) => {
         setCart(updatedCart);
     }
 
-
-    // function clearCart() {
-    //     return setCart([]);
-    // }
-
-
     return (
         <AppContext.Provider value={{
             selectedSize,
@@ -91,7 +85,6 @@ export const AppProvider = ({ children }) => {
             getTotalItemInCart,
             deleteItem,
             getTotalItemPriceInCart,
-            // clearCart,
             updateItemCount,
         }}>
             {children}

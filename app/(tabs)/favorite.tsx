@@ -1,4 +1,10 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    FlatList,
+    ScrollView,
+} from "react-native";
 import React, { useContext } from "react";
 import styles from "../styles";
 import { favContext } from "@/context/favContext";
@@ -15,13 +21,16 @@ export default function favorite() {
                 </Text>
             ) : (
                 <>
-                    {favorit.map((favo: any) => {
-                        return (
-                            <View key={favo.id}>
-                                <Products key={favo.id} item={favo} />
+                    <FlatList
+                        data={favorit}
+                        keyExtractor={(item) => item.id}
+                        numColumns={2}
+                        renderItem={({ item }) => (
+                            <View key={item.id}>
+                                <Products key={item.id} item={item} />
                                 <View>
                                     <TouchableOpacity
-                                        onPress={() => deleteFavorite(favo.id)}
+                                        onPress={() => deleteFavorite(item.id)}
                                         style={styles.btn}
                                     >
                                         <Text style={styles.btnText}>
@@ -30,8 +39,8 @@ export default function favorite() {
                                     </TouchableOpacity>
                                 </View>
                             </View>
-                        );
-                    })}
+                        )}
+                    />
                 </>
             )}
         </View>

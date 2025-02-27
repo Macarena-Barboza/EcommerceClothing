@@ -28,11 +28,7 @@ export default function ProductDetails() {
         addItem,
     } = useContext(AppContext);
 
-    const {
-        addFavorite,
-        //  favorite,
-        isFavorite,
-    } = useContext(favContext);
+    const { addFavorite, isFavorite } = useContext(favContext);
 
     useEffect(() => {
         setLoading(true);
@@ -67,13 +63,12 @@ export default function ProductDetails() {
                 },
             ]);
         } else {
-            // Solo pasamos la cantidad como un número
-            const count = 1; // O puedes permitir que el usuario elija la cantidad
+            const count = 1;
             addItem(
                 {
                     ...product,
-                    size: selectedSize, // Asegúrate de pasar el tamaño correcto
-                    color: selectedColor, // Asegúrate de pasar el color correcto
+                    size: selectedSize,
+                    color: selectedColor,
                 },
                 count
             );
@@ -88,7 +83,10 @@ export default function ProductDetails() {
         <>
             <View style={styles.content}>
                 <Image source={product.image} style={styles.img} />
-                <TouchableOpacity onPress={() => addFavorite(product)}>
+                <TouchableOpacity
+                    onPress={() => addFavorite(product)}
+                    style={styles.fav}
+                >
                     <Ionicons
                         name={
                             isFavorite(product)
@@ -207,14 +205,14 @@ const styles = StyleSheet.create({
         gap: 20,
         marginTop: 7,
     },
-    // fav: {
-    //     position: "absolute",
-    //     top: 30,
-    //     right: 33,
-    //     backgroundColor: "#eeeeee",
-    //     borderRadius: "50%",
-    //     padding: 7,
-    // },
+    fav: {
+        position: "absolute",
+        top: 30,
+        right: 33,
+        backgroundColor: "#eeeeee",
+        borderRadius: "50%",
+        padding: 7,
+    },
     title: {
         fontSize: 23,
         fontWeight: "bold",
@@ -234,7 +232,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         paddingVertical: 7,
         borderRadius: "30%",
-        // width: 32,
     },
     sizeSeleted: {
         backgroundColor: "crimson",
